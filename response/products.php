@@ -9,6 +9,12 @@ $products = array();
 while($obj = $res->fetch_assoc()){
 	$products[] = $obj;
 }
+
+foreach($products as &$p)
+{
+	$p['imageSrc'] = 'https://' . $_SERVER["HTTP_HOST"] . '/assets/images/' . $p['imageSrc'];
+}
+unset($p);
 echo json_encode($products, JSON_UNESCAPED_UNICODE);
 exit();
 ?>
