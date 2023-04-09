@@ -1,4 +1,5 @@
 <?
+header("Content-Type: application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 $db = db_connect('guest');
 $sql = 'SELECT * FROM products';
