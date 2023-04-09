@@ -12,7 +12,7 @@ $products = array();
 while($obj = $res_products->fetch_assoc()){
 	$products[$obj['id']] = $obj;
 }
-
+var_dump($submissions);
 function printListItem($submission, $products_arr){
 	$output = '<div class="row"><div class="name">'.$submission['name'].'</div><div class="items">';
 	$items = json_decode($submission['items']);
@@ -27,9 +27,15 @@ function printListItem($submission, $products_arr){
 ?>
 
 <main>
-	<? foreach($submissions as $s){
-		printListItem($s, $products);
-	} ?>
+	<? 
+	if($submissions) {
+		foreach($submissions as $s){
+			printListItem($s, $products);
+		} 
+	}
+	else
+		echo 'Currently no submissions';
+	?>
 </main>
 <script>
 </script>
