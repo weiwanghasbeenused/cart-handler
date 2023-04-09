@@ -22,6 +22,7 @@ function printListItem($submission, $products_arr){
 	{
 		foreach($items as $id)
 		{
+			$p = $products_arr[$id];
 			$item_names[] = $p['title'];
 		}
 	}
