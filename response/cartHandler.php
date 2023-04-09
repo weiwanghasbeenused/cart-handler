@@ -7,7 +7,7 @@ header("Content-Type: application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 require_once('../config/config.php');
 $db = db_connect('admin');
-
+$sql_products = 'SELECT * FROM products';
 $res = $db->query($sql_products);
 $products = array();
 while($obj = $res->fetch_assoc()){
@@ -20,9 +20,9 @@ $email = $_POST['email'];
 $items = $_POST["productIds"];
 $subtotal = $_POST['subtotal'];
 $created = time();
-$sql_products = "SELECT * FROM products (`name`, `email`, `items`, `subtotal`, `created`) VALUES ('".$name."', '".$email."', '".$items."', '".$subtotal."', '".$created."')";
+$sql_submissions = "SELECT * FROM products (`name`, `email`, `items`, `subtotal`, `created`) VALUES ('".$name."', '".$email."', '".$items."', '".$subtotal."', '".$created."')";
 
-$res = $db->query($sql);
+$res = $db->query($sql_submissions);
 if($res){
 	echo 'success';
 }
