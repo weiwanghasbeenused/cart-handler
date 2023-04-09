@@ -1,4 +1,5 @@
 <?
+header("Access-Control-Allow-Origin: *");
 $db = db_connect('guest');
 $sql = 'SELECT * FROM products';
 $res = $db->query($sql);
