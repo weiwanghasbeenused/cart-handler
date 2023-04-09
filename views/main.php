@@ -15,7 +15,7 @@ while($obj = $res_products->fetch_assoc()){
 var_dump($submissions);
 function printListItem($submission, $products_arr){
 	$output = '<div class="row"><div class="name">'.$submission['name'].'</div><div class="items">';
-	$items = explode(',' $submission['items']);
+	$items = explode(',', $submission['items'] );
 
 	$item_names = array();
 	if($items)
