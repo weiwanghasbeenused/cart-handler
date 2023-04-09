@@ -15,11 +15,15 @@ while($obj = $res_products->fetch_assoc()){
 var_dump($submissions);
 function printListItem($submission, $products_arr){
 	$output = '<div class="row"><div class="name">'.$submission['name'].'</div><div class="items">';
-	$items = json_decode($submission['items']);
+	$items = explode(',' $submission['items']);
+
 	$item_names = array();
-	foreach($items as $id)
+	if($items)
 	{
-		$item_names[] = $p['title'];
+		foreach($items as $id)
+		{
+			$item_names[] = $p['title'];
+		}
 	}
 	$output .=  implode(', ', $item_names);
 	$output .= '</div><div class="subtotal">'.$submission['subtotal'].'</div></div>';
