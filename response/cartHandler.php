@@ -20,7 +20,7 @@ $email = $_POST['email'];
 $items = $_POST["productIds"];
 $subtotal = $_POST['subtotal'];
 $created = time();
-$sql_submissions = "SELECT * FROM products (`name`, `email`, `items`, `subtotal`, `created`) VALUES ('".$name."', '".$email."', '".$items."', '".$subtotal."', '".$created."')";
+$sql_submissions = "SELECT * FROM products (`name`, `email`, `items`, `subtotal`) VALUES ('".$name."', '".$email."', '".$items."', '".$subtotal."')";
 
 $res = $db->query($sql_submissions);
 if($res){
