@@ -6,7 +6,7 @@ if(empty($_POST)) {
 header("Content-Type: application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 require_once('../config/config.php');
-$db = db_connect('guest');
+$db = db_connect('admin');
 
 $res = $db->query($sql_products);
 $products = array();
