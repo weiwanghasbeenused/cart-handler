@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.31, for macos12.6 (arm64)
 --
--- Host: localhost    Database: cartHandler
+-- Host: localhost    Database: cart_handler_local
 -- ------------------------------------------------------
 -- Server version	8.0.31
 
@@ -28,7 +28,7 @@ CREATE TABLE `products` (
   `thumbnail` tinytext,
   `price` tinytext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'哈利波特: 神秘的魔法石','harryPotter-1.webp','250'),(2,'哈利波特: 消失的密室','harryPotter-2.webp','280');
+INSERT INTO `products` VALUES (1,'哈利波特: 神秘的魔法石','harryPotter-1.webp','250'),(2,'哈利波特: 消失的密室','harryPotter-2.webp','280'),(3,'哈利波特: 阿茲卡班的逃犯','harryPotter-3.webp','250'),(4,'哈利波特: 火盃的考驗','harryPotter-4.webp','429');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,4 +77,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-09 13:45:27
+-- Dump completed on 2023-04-09 14:30:45
