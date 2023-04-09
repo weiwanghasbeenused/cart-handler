@@ -20,7 +20,7 @@ $email = $_POST['email'];
 $items = $_POST["productIds"];
 $subtotal = $_POST['subtotal'];
 $created = time();
-$sql_submissions = "INSERT INTO submissions (`name`, `email`, `items`, `subtotal`) VALUES ('".$name."', '".$email."', '".$items."', '".$subtotal."')";
+$sql_submissions = "INSERT INTO submissions (`name`, `email`, `items`, `subtotal`, `created`) VALUES ('".$name."', '".$email."', '".$items."', '".$subtotal."', '".$created."')";
 $res_submissions = $db->query($sql_submissions);
 if($res_submissions){
 	echo 'success';

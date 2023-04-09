@@ -12,7 +12,6 @@ $products = array();
 while($obj = $res_products->fetch_assoc()){
 	$products[$obj['id']] = $obj;
 }
-var_dump($submissions);
 function printListItem($submission, $products_arr){
 	$output = '<div class="row"><div class="name">'.$submission['name'].'</div><div class="items">';
 	$items = explode(',', $submission['items'] );
@@ -28,19 +27,54 @@ function printListItem($submission, $products_arr){
 	}
 	$output .=  implode(', ', $item_names);
 	$output .= '</div><div class="subtotal">'.$submission['subtotal'].'</div></div>';
+
+	return $output;
 }
 ?>
 
 <main>
+	<div class="row"><div class="name">姓名</div><div class="items">購買商品</div><div class="subtotal">總金額</div></div>
 	<? 
 	if($submissions) {
 		foreach($submissions as $s){
-			printListItem($s, $products);
+			echo printListItem($s, $products);
 		} 
 	}
 	else
 		echo 'Currently no submissions';
 	?>
 </main>
-<script>
-</script>
+<style>
+	main {
+		margin: 100px;
+		border-top: 1px solid;
+		border-left: 1px solid;
+	}
+	.row
+	{
+		display: flex;
+		border-bottom: 1px solid;
+	}
+	.row:hover
+	{
+		background-color: yellow;
+	}
+	.row > div
+	{
+		padding: 10px;
+		border-right: 1px solid;
+	}
+	.name
+	{
+		flex: 0 0 80px;
+	}
+	.items
+	{
+		flex: 0 0 500px;
+	}
+	.subtotal
+	{
+		flex: 1;
+	}
+
+</style>
