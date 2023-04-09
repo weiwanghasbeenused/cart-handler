@@ -2,9 +2,9 @@
 $db = db_connect('guest');
 $sql_submissions = 'SELECT * FROM submissions';
 $res_submissions = $db->query($sql_submissions);
-$submission = array();
+$submissions = array();
 while($obj = $res_submissions->fetch_assoc()){
-	$submission[] = $obj;
+	$submissions[] = $obj;
 }
 $sql_products = 'SELECT * FROM products';
 $res_products = $db->query($sql_products);
@@ -13,8 +13,7 @@ while($obj = $res_products->fetch_assoc()){
 	$products[$obj['id']] = $obj;
 }
 
-function printListItem($id, $submission, $products_arr){
-	$p = $products_arr[$id];
+function printListItem($submission, $products_arr){
 	$output = '<div class="row"><div class="name">'.$submission['name'].'</div><div class="items">';
 	$items = json_decode($submission['items']);
 	$item_names = array();
@@ -28,7 +27,9 @@ function printListItem($id, $submission, $products_arr){
 ?>
 
 <main>
-	<?  ?>
+	<? foreach($submissions as $s){
+		printListItem($s, $products);
+	} ?>
 </main>
 <script>
 </script>
