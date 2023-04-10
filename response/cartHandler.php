@@ -6,7 +6,7 @@ if(empty($_POST)) {
         exit();
 }
 
-if(!isset($_POST['error']))
+if(isset($_POST['error']))
 {
 	echo '{ "response": "error", "reason": "test error response" }';
 	exit();
