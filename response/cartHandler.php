@@ -1,12 +1,12 @@
 <?
-if(empty($_POST)) {
-	echo '這個檔案只負責處理購物車的提交, 不顯示任何內容';
-	exit();
-}
-header("Content-Type: application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=utf-8");
+if(empty($_POST)) {
+        echo '這個檔案只負責處理購物車的提交, 不顯示任何內容';
+        exit();
+}
 
-if(!isset($_POST['error'])
+if(!isset($_POST['error']))
 {
 	echo '{ "response": "error", "reason": "test error response" }';
 	exit();
