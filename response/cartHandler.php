@@ -15,7 +15,7 @@ $created = date("Y-m-d H:i:s", time());
 $sql_submissions = "INSERT INTO submissions (`name`, `email`, `items`, `subtotal`, `created`) VALUES ('".$name."', '".$email."', '".$items."', '".$subtotal."', '".$created."')";
 $res_submissions = $db->query($sql_submissions);
 if($res_submissions){
-	echo '提供成功! 謝謝您的光臨';
+	echo 'success';
 }
 else{
 	echo 'error';
