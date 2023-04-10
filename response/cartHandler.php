@@ -6,7 +6,7 @@ if(empty($_POST)) {
 header("Content-Type: application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 
-if(!isset($_POST['error'])
+if(isset($_POST['error']))
 {
 	echo '{ "response": "error", "reason": "test error response" }';
 	exit();
