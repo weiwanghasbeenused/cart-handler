@@ -15,6 +15,17 @@ if( $data->error )
 	echo '{ "response": "error", "reason": "test" }';
 	exit();
 }
+$missing_data = array();
+if( !isset($data['name']) ) $missing_data[] = 'name';
+if( !isset($data['email']) ) $missing_data[] = 'email';
+if( !isset($data['productIds']) ) $missing_data[] = 'productIds';
+if( !isset($data['subtotal']) ) $missing_data[] = 'subtotal';
+
+if(!empty($missing_data))
+{
+	echo '{ "response": "error", "reason": "missingData: ' . implode(',', $missing_data) . '" }';
+	exit();
+}
 
 $name = $data['name'];
 $email = $data['email'];
