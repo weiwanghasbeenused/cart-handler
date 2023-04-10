@@ -1,20 +1,12 @@
 <?
 if(empty($_POST)) {
-	echo 'Nothing here.';
+	echo '這個檔案只負責處理購物車的提交, 不顯示任何內容';
 	exit();
 }
 header("Content-Type: application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 require_once('../config/config.php');
 $db = db_connect('admin');
-// $sql_products = 'SELECT * FROM products';
-// $res = $db->query($sql_products);
-// $products = array();
-// while($obj = $res->fetch_assoc()){
-// 	$products[] = $obj;
-// }
-// $sql_submissions = 'INSERT INTO submissions ';
-// $productIds = json_decode( $_POST["productIds"] );
 $name = $_POST['name'];
 $email = $_POST['email'];
 $items = $_POST["productIds"];
@@ -23,7 +15,7 @@ $created = date("Y-m-d H:i:s", time());
 $sql_submissions = "INSERT INTO submissions (`name`, `email`, `items`, `subtotal`, `created`) VALUES ('".$name."', '".$email."', '".$items."', '".$subtotal."', '".$created."')";
 $res_submissions = $db->query($sql_submissions);
 if($res_submissions){
-	echo 'success';
+	echo '提供成功! 謝謝您的光臨';
 }
 else{
 	echo 'error';
