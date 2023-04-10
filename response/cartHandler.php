@@ -1,10 +1,10 @@
 <?
+header("Content-Type: application/json; charset=utf-8");
+header("Access-Control-Allow-Origin: *");
 if(!file_get_contents('php://input')) {
 	echo '這個檔案只負責處理購物車的提交, 不顯示任何內容';
 	exit();
 }
-header("Content-Type: application/json; charset=utf-8");
-header("Access-Control-Allow-Origin: *");
 require_once('../config/config.php');
 $db = db_connect('admin');
 $json = file_get_contents('php://input');
