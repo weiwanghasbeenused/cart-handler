@@ -1,6 +1,11 @@
 <?
 header("Content-Type: application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
+if(!empty($_POST))
+{
+	echo '這裡只負責處理 GET, 不處理 POST . . . ';
+	exit();
+}
 require_once('../config/config.php');
 $db = db_connect('guest');
 $sql = 'SELECT * FROM products';
