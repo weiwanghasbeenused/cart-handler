@@ -8,7 +8,7 @@ if(empty($_POST)) {
 
 if(isset($_POST['error']))
 {
-	echo '{ "response": "error", "reason": "test error response" }';
+	echo '{ "status": "error", "reason": "test error response" }';
 	exit();
 }
 
@@ -20,7 +20,7 @@ if( !isset($_POST['subtotal']) ) $missing_data[] = 'subtotal';
 
 if(!empty($missing_data))
 {
-	echo '{ "response": "error", "reason": "missingData: ' . implode(',', $missing_data) . '" }';
+	echo '{ "status": "error", "reason": "missingData: ' . implode(',', $missing_data) . '" }';
 	exit();
 }
 
@@ -34,9 +34,9 @@ $created = date("Y-m-d H:i:s", time());
 $sql_submissions = "INSERT INTO submissions (`name`, `email`, `items`, `subtotal`, `created`) VALUES ('".$name."', '".$email."', '".$items."', '".$subtotal."', '".$created."')";
 $res_submissions = $db->query($sql_submissions);
 if($res_submissions){
-	echo '{"response": "success"}';
+	echo '{"status": "success"}';
 }
 else{
-	echo '{"response": "error", "reason": "database"}';
+	echo '{"status": "error", "reason": "database"}';
 }
 ?>
