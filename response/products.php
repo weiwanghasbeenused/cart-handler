@@ -18,6 +18,7 @@ while($obj = $res->fetch_assoc()){
 foreach($products as &$p)
 {
 	$p['imageSrc'] = 'https://' . $_SERVER["HTTP_HOST"] . '/assets/images/' . $p['imageSrc'];
+	$p['price'] = intval($p['price']);
 }
 unset($p);
 echo json_encode($products, JSON_UNESCAPED_UNICODE);
