@@ -16,7 +16,7 @@
 // get environment variables
 // date_default_timezone_set('America/New_York');
 // $db_name = "open-records-generator";
-$host = "//".$_SERVER["HTTP_HOST"]."/";
+$host = isset($_SERVER["HTTP_HOST"]) ? "//".$_SERVER["HTTP_HOST"]."/" : "";
 // $root = $_SERVER["DOCUMENT_ROOT"]."/";
 // $admin_path = $host . "open-records-generator/";
 // $admin_root = $root . "open-records-generator/";
@@ -82,20 +82,20 @@ function db_connect($remote_user) {
 	} else {
 		// IF YOU ARE NOT USING ENVIRONMENTAL VARIABLES
 		$host = "localhost";
-		$dbse = "database";
+		$dbse = "cart_handler_local";
 
 		// full access
-		$creds['full']['db_user'] = "user_full";
-		$creds['full']['db_pass'] = "pass_full";
+		$creds['full']['db_user'] = "root";
+		$creds['full']['db_pass'] = "f3f4p4ax";
 
 		// read / write access
 		// (can't create / drop tables)
-		$creds['rw']['db_user'] = "user_rw";
-		$creds['rw']['db_pass'] = "pass_rw";
+		$creds['rw']['db_user'] = "root";
+		$creds['rw']['db_pass'] = "f3f4p4ax";
 
 		// read-only access
-		$creds['r']['db_user'] = "user_r";
-		$creds['r']['db_pass'] = "pass_r";
+		$creds['r']['db_user'] = "root";
+		$creds['r']['db_pass'] = "f3f4p4ax";
 	}
 
 	// users

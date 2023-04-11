@@ -14,5 +14,11 @@ else if(!$uri[1]){
 	// else require_once('views/404.php');
 	require_once('views/foot.php');
 }
-
+else if ($uri[1] == 'generate-list')
+{
+	require_once('views/head.php');
+	require_once('views/generate-list.php');
+	// else require_once('views/404.php');
+	require_once('views/foot.php');
+}
 	
