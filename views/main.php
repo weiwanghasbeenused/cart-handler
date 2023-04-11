@@ -21,6 +21,7 @@ function printListItem($submission, $products_arr){
 	{
 		foreach($items as $id)
 		{
+			if( !isset($products_arr[$id]) ) return;
 			$p = $products_arr[$id];
 			$item_names[] = $p['title'];
 		}
