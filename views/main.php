@@ -45,7 +45,19 @@ function printListItem($submission, $products_arr){
 		echo 'Currently no submissions';
 	?>
 </main>
+<div id="announcement">
+	<p id="msg">各位同學:<br>這個頁面在明天(四)中午時會清除目前的資料，並開始讓大家送出作為成績的購物車訂單。在那之前這個頁面仍開放讓大家做練習使用，但星期四中午後，請共同維護版面整潔 (也就是不要再買20萬的書，或讓「那個人」下訂單了)，謝謝！</p>
+	<div id="control-bar"><button onclick="confirmAnnouncement();">確認並接受cookie</button><button onclick="confirmAnnouncement(false)">確認但不接受cookie</button> <span class="tip-trigger">cookie&#127850;? <span class="tip">這個網站的cookie只會儲存你是否確認過此訊息。若確認過，此訊息便不再顯示</span></span></div>
+</div>
 <style>
+	*
+	{
+		margin: 0;
+	}
+	body
+	{
+		font-size: 16px;
+	}
 	main {
 		margin: 100px 50px ;
 		border-top: 1px solid;
@@ -81,5 +93,83 @@ function printListItem($submission, $products_arr){
 	{
 		flex: 1;
 	}
+	.tip-trigger {
+		display: inline-block;
+		position: relative;
+		cursor: help;
 
+	}
+	.tip
+	{
+		position: absolute;
+		min-width: 180px;
+		padding: 20px;
+		background-color: #ddd;
+		bottom: 0;
+		left: 0;
+		transform: translate(0, 100%);
+		opacity: 0;
+		pointer-events: none;
+		font-size: 15px;
+
+	}
+	.tip-trigger:hover .tip
+	{
+		transition: opacity .25s;
+		opacity: 1;
+		pointer-events: initial;
+	}
+	#announcement
+	{
+		display: none;
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: yellow;
+		border: 1px solid;
+		padding: 20px;
+		width: 60vw;
+		max-width: 600px;
+		font-size: 1.2em;
+	}
+
+	body.viewing-announcement #announcement
+	{
+		display: block;
+		opacity: 1;
+	}
+	body.viewing-announcement main
+	{
+		pointer-events: none;
+		opacity: 0.5;
+	}
+	button
+	{
+		padding: 15px;
+		border: 1px solid;
+		border-radius: 15px;
+		cursor: pointer;
+		background-color: #fff;
+	}
+	button + button
+	{
+		margin-left: 10px;
+	}
+	button:hover
+	{
+		background-color: #ddd;
+	}
+	#control-bar
+	{
+		margin-top: 20px;
+	}
 </style>
+<script>
+	function confirmAnnouncement(acceptCookie=true){
+		document.body.classList.remove('viewing-announcement');
+		if(!acceptCookie) return;
+		console.log("acceptCookie");
+		setCookie("announcementIsRead", "true", 30);
+	}
+</script>
