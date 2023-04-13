@@ -9,7 +9,7 @@ if(!$uri[1] || $uri[1] == 'sandbox'){
 	require_once('views/main.php');
 	require_once('views/foot.php');
 }	
-elese if($uri[1] == 'api'){
+else if($uri[1] == 'api'){
 	require_once('config/config.php');
 	require_once('response/'.$uri[2].'.php');
 } 

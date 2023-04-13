@@ -32,19 +32,24 @@ function printListItem($submission, $products_arr){
 
 	return $output;
 }
+
+$page_name = $uri == 'sandbox' ? "購買請求列表 (Sandbox)" : "購買請求列表";
 ?>
 
 <main>
-	<div class="row"><div class="name">姓名</div><div class="items">購買商品</div><div class="subtotal">總金額</div><div class="created">購買時間</div></div>
-	<? 
-	if($submissions) {
-		foreach($submissions as $s){
-			echo printListItem($s, $products);
-		} 
-	}
-	else
-		echo '<div id="zero-submissions">Currently no submissions</div>';
-	?>
+	<h1 id="page-name"><?= $page_name; ?></h1>
+	<div id="list-container">
+		<div class="row"><div class="name">姓名</div><div class="items">購買商品</div><div class="subtotal">總金額</div><div class="created">購買時間</div></div>
+		<? 
+		if($submissions) {
+			foreach($submissions as $s){
+				echo printListItem($s, $products);
+			} 
+		}
+		else
+			echo '<div id="zero-submissions">Currently no submissions</div>';
+		?>
+	</div>
 </main>
 <div id="announcement">
 	<p id="msg">各位同學:<br>現在這裡開放讓大家交作業，請參照我寄給你們的txt檔，送出指派給你們的商品資料。同時請大家共同維護此版面整潔 (也就是不要再買20萬的書，或讓「那個人」下訂單了)，謝謝！</p>
@@ -61,6 +66,10 @@ function printListItem($submission, $products_arr){
 	}
 	main {
 		margin: 100px 50px ;
+		
+	}
+	#list-container
+	{
 		border-top: 1px solid;
 		border-left: 1px solid;
 	}
@@ -119,6 +128,10 @@ function printListItem($submission, $products_arr){
 		transition: opacity .25s;
 		opacity: 1;
 		pointer-events: initial;
+	}
+	#page-name
+	{
+		margin-bottom: 20px;
 	}
 	#announcement
 	{
