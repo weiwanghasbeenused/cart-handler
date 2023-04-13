@@ -33,7 +33,7 @@ function printListItem($submission, $products_arr){
 	return $output;
 }
 
-$page_name = $uri == 'sandbox' ? "購買請求列表 (Sandbox)" : "購買請求列表";
+$page_name = $uri[1] == 'sandbox' ? "購買請求列表 (Sandbox)" : "購買請求列表";
 ?>
 
 <main>
@@ -67,6 +67,10 @@ $page_name = $uri == 'sandbox' ? "購買請求列表 (Sandbox)" : "購買請求�
 	main {
 		margin: 100px 50px ;
 		
+	}
+	body.sandbox
+	{
+		background-color: #efefef;
 	}
 	#list-container
 	{
