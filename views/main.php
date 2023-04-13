@@ -42,11 +42,11 @@ function printListItem($submission, $products_arr){
 		} 
 	}
 	else
-		echo 'Currently no submissions';
+		echo '<div id="zero-submissions">Currently no submissions</div>';
 	?>
 </main>
 <div id="announcement">
-	<p id="msg">各位同學:<br>這個頁面在明天(四)中午時會清除目前的資料，並開始讓大家送出作為成績的購物車訂單。在那之前這個頁面仍開放讓大家做練習使用，但星期四中午後，請共同維護版面整潔 (也就是不要再買20萬的書，或讓「那個人」下訂單了)，謝謝！</p>
+	<p id="msg">各位同學:<br>現在這裡開放讓大家交作業，請參照我寄給你們的txt檔，送出指派給你們的商品資料。同時請大家共同維護此版面整潔 (也就是不要再買20萬的書，或讓「那個人」下訂單了)，謝謝！</p>
 	<div id="control-bar"><button onclick="confirmAnnouncement();">確認並接受cookie</button><button onclick="confirmAnnouncement(false)">確認但不接受cookie</button> <span class="tip-trigger">cookie&#127850;? <span class="tip">這個網站的cookie只會儲存你是否確認過此訊息。若確認過，此訊息便不再顯示</span></span></div>
 </div>
 <style>
@@ -164,12 +164,17 @@ function printListItem($submission, $products_arr){
 	{
 		margin-top: 20px;
 	}
+	#zero-submissions
+	{
+		padding: 10px;
+		border-bottom: 1px solid;
+		border-right: 1px solid;
+	}
 </style>
 <script>
 	function confirmAnnouncement(acceptCookie=true){
 		document.body.classList.remove('viewing-announcement');
 		if(!acceptCookie) return;
-		console.log("acceptCookie");
 		setCookie("announcementIsRead", "true", 30);
 	}
 </script>
