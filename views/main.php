@@ -1,6 +1,7 @@
 <?
 $db = db_connect('guest');
-$sql_submissions = 'SELECT * FROM submissions';
+$table_name = $uri[1] ? 'submissions_' . $uri[1] : 'submissions';
+$sql_submissions = 'SELECT * FROM ' . $table_name;
 $res_submissions = $db->query($sql_submissions);
 $submissions = array();
 while($obj = $res_submissions->fetch_assoc()){
