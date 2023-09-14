@@ -17,7 +17,7 @@ while($obj = $res->fetch_assoc()){
 
 foreach($products as &$p)
 {
-	$p['imageSrc'] = 'https://' . $_SERVER["HTTP_HOST"] . '/assets/images/' . $p['imageSrc'];
+	$p['thumbnail'] = 'http://' . $_SERVER["HTTP_HOST"] . '/assets/images/' . $p['thumbnail'];
 	$p['price'] = intval($p['price']);
 }
 unset($p);

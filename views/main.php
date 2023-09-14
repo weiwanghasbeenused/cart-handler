@@ -2,7 +2,7 @@
 $mode = $uri[1] ? ($uri[1] == 'sandbox' ? 'sandbox' : 'undefined') : 'live';
 $db = db_connect('guest');
 $table_name = 'submissions';
-$sql_submissions = 'SELECT * FROM ' . $table_name . ' WHERE `mode` = "'.$mode.'"';
+$sql_submissions = 'SELECT submissions.*, students.firstName, students.lastName FROM `submissions`, `students` WHERE `mode` = "'.$mode.'" AND submissions.submitterId = students.id';
 $res_submissions = $db->query($sql_submissions);
 $submissions = array();
 while($obj = $res_submissions->fetch_assoc()){
@@ -15,7 +15,7 @@ while($obj = $res_products->fetch_assoc()){
 	$products[$obj['id']] = $obj;
 }
 function printListItem($submission, $products_arr){
-	$output = '<div class="row"><div class="name">'.$submission['name'].'</div><div class="items">';
+	$output = '<div class="row"><div class="name">'.$submission['lastName']. ' ' . $submission['firstName'].'</div><div class="items">';
 	$items = explode(',', $submission['items'] );
 	$created = $submission['created'] ? $submission['created'] : '';
 	$item_names = array();

@@ -11,9 +11,6 @@ else {
 	require_once('views/head.php');
 	require_once('views/nav.php');
 	if(!$uri[1] || $uri[1] == 'sandbox') require_once('views/main.php');
-	// else if($uri[1] == 'register') require_once('views/register.php');
-	// else if($uri[1] == 'student') require_once('views/student.php');
-	// else if($uri[1] == 'cart-homework-manager') require_once('views/cart-homework-manager.php');
 	else require_once('views/'.$uri[1].'.php');
 	require_once('views/foot.php');
 }

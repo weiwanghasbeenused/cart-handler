@@ -7,7 +7,8 @@ function getMissingVars($vars, $post){
     return $output;
 }
 function checkMissingVars($vars, $post, $response){
-    if(!empty(getMissingVars($vars, $post))) {
+    $missing_vars = getMissingVars($vars, $post);
+    if(!empty($missing_vars)) {
         $response['status'] = 'error';
         $response['errorType'] = 'missing vars';
         $response['body'] = implode(', ', $missing_vars);
@@ -53,7 +54,7 @@ function getStudent($email, $db) {
 }
 function getStudentByToken($token, $db) {
     $output = array();
-    $sql = 'SELECT * FROM `students` WHERE `live_token` = ?';
+    $sql = 'SELECT * FROM `students` WHERE `live_key` = ?';
     $stmt = $db->prepare($sql);
     $stmt->bind_param('s', $token);
     $stmt->execute();
@@ -63,7 +64,7 @@ function getStudentByToken($token, $db) {
         $output['student'] = $result;
         return $output;
     }
-    $sql = 'SELECT * FROM `students` WHERE `sandbox_token` = ?';
+    $sql = 'SELECT * FROM `students` WHERE `sandbox_key` = ?';
     $stmt = $db->prepare($sql);
     $stmt->bind_param('s', $token);
     $stmt->execute();
