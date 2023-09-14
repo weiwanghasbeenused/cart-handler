@@ -6,7 +6,7 @@ if(!empty($_POST))
 	echo '這裡只負責處理 GET, 不處理 POST . . . ';
 	exit();
 }
-require_once('../config/config.php');
+require_once(__DIR__ . '/../config/config.php');
 $db = db_connect('guest');
 $sql = 'SELECT * FROM products';
 $res = $db->query($sql);
