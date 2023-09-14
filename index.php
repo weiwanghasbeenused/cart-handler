@@ -2,7 +2,7 @@
 $request = $_SERVER['REQUEST_URI'];
 $requestclean = strtok($request,"?");
 $uri = explode('/', $requestclean);
-
+date_default_timezone_set('Asia/Taipei');
 if($uri[1] && $uri[1] == 'api') {
 	require_once('config/config.php');
 	require_once('response/'.$uri[2].'.php');
