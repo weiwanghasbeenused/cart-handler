@@ -18,8 +18,8 @@ $student = getStudent($email, $db)->fetch_assoc();
     <section>
         <p>嗨, <?php echo $student['firstName']; ?>!<br><br></p>
         <p>以下是你繳交課程作業會需要的資料<br>
-        Live key: <?php echo $student['live_key']; ?><br>
-        Sandbox key: <?php echo $student['sandbox_key']; ?><br>
+        Live token: <?php echo $student['live_key']; ?><br>
+        Sandbox token: <?php echo $student['sandbox_key']; ?><br>
         </p>
     </section>
 </main>
