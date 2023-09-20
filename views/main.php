@@ -29,8 +29,10 @@ function printListItem($submission, $products_arr){
 			$p = $products_arr[$id];
 			$item_names[] = $p['title'];
 		}
+		$output .=  implode(', ', $item_names);
 	}
-	$output .=  implode(', ', $item_names);
+	else  $output .=  $submission['items'];
+	
 	$output .= '</div><div class="subtotal">'.$submission['subtotal'].'</div><div class="created">'. $created .'</div></div>';
 
 	return $output;
