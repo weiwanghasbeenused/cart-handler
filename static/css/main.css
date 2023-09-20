@@ -110,6 +110,7 @@ body.sandbox
     width: 60vw;
     max-width: 600px;
     font-size: 1.2em;
+    z-index: 1000;
 }
 
 body.viewing-announcement #announcement
@@ -130,13 +131,12 @@ button
     cursor: pointer;
     background-color: #fff;
 }
-button + button
-{
-    margin-left: 10px;
-}
 button:hover
 {
     background-color: #ddd;
+}
+#control-bar button + button {
+    margin-top: 10px;
 }
 #control-bar
 {
