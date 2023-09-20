@@ -9,12 +9,12 @@ $response = array(
     'errorType' => '',
     'body' => ''
 );
-checkMissingVars($vars_required, $_POST, $response);
+checkMissingVars($vars_required, $submission, $response);
 require_once(__DIR__ . '/../config/config.php');
 
-// $items = $_POST["productIds"];
-// $subtotal = $_POST['subtotal'];
-$token = $_POST['token'];
+// $items = $submission["productIds"];
+// $subtotal = $submission['subtotal'];
+$token = $submission['token'];
 $created = date("Y-m-d H:i:s", time());
 
 $result = getStudentByToken($token, $db);
@@ -28,10 +28,11 @@ if(!$result['student']->num_rows)
 }
 $mode = $result['mode'];
 $student = $result['student']->fetch_assoc();
-$values_with_key = $_POST;
+$values_with_key = $submission;
 $values_with_key['submitterId'] = $student['id'];
 $values_with_key['created'] = $created;
 $values_with_key['mode'] = $mode;
+if(is_array($values_with_key['items'])) $values_with_key['items'] = json_encode($values_with_key['items']);
 unset($values_with_key['token']);
 $stmtParams = prepareStmtParams($vars, $values_with_key);
 $values = $stmtParams['values'];

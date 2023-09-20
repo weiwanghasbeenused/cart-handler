@@ -16,14 +16,16 @@ while($obj = $res_products->fetch_assoc()){
 }
 function printListItem($submission, $products_arr){
 	$output = '<div class="row"><div class="name">'.$submission['lastName']. ' ' . $submission['firstName'].'</div><div class="items">';
-	$items = explode(',', $submission['items'] );
+	$items = json_decode($submission['items'] );
 	$created = $submission['created'] ? $submission['created'] : '';
 	$item_names = array();
 	if($items)
 	{
 		foreach($items as $id)
 		{
-			if( !isset($products_arr[$id]) ) return;
+			if( !isset($products_arr[$id]) ) {
+				return;
+			}
 			$p = $products_arr[$id];
 			$item_names[] = $p['title'];
 		}
