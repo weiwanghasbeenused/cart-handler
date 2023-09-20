@@ -19,6 +19,7 @@ foreach($products as &$p)
 {
 	$p['thumbnail'] = 'http://' . $_SERVER["HTTP_HOST"] . '/assets/images/' . $p['thumbnail'];
 	$p['price'] = intval($p['price']);
+	// $p['id'] = $p['productId'];
 }
 unset($p);
 echo json_encode($products, JSON_UNESCAPED_UNICODE);

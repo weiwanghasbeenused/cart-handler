@@ -21,6 +21,7 @@ CREATE TABLE `students` (
   `class` tinytext,
   `live_key` tinytext,
   `sandbox_key` tinytext,
+  `assignment` text,
   `created` datetime default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -29,6 +30,7 @@ DROP TABLE IF EXISTS `products`;
 
 CREATE TABLE `products` (
   `id` int(10) unsigned NOT NULL auto_increment,
+  `productId` tinytext, 
   `title` tinytext,
   `thumbnail` tinytext,
   `price` tinytext,
