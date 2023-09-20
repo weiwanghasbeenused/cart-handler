@@ -53,10 +53,6 @@ $page_name = $uri[1] == 'sandbox' ? "購買請求列表 (Sandbox)" : "購買請�
 		?>
 	</div>
 </main>
-<div id="announcement">
-	<p id="msg">各位同學:<br>現在這裡開放讓大家交作業，請參照我寄給你們的txt檔，送出指派給你們的商品資料。同時請大家共同維護此版面整潔 (也就是不要再買20萬的書，或讓「那個人」下訂單了)，謝謝！</p>
-	<div id="control-bar"><button onclick="confirmAnnouncement();">確認並接受cookie</button><button onclick="confirmAnnouncement(false)">確認但不接受cookie</button> <span class="tip-trigger">cookie&#127850;? <span class="tip">這個網站的cookie只會儲存你是否確認過此訊息。若確認過，此訊息便不再顯示</span></span></div>
-</div>
 <style>
 	/* *
 	{
@@ -68,10 +64,3 @@ $page_name = $uri[1] == 'sandbox' ? "購買請求列表 (Sandbox)" : "購買請�
 	} */
 	
 </style>
-<script>
-	function confirmAnnouncement(acceptCookie=true){
-		document.body.classList.remove('viewing-announcement');
-		if(!acceptCookie) return;
-		setCookie("announcementIsRead", "true", 30);
-	}
-</script>
