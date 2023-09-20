@@ -2,7 +2,7 @@
 $mode = $uri[1] ? ($uri[1] == 'sandbox' ? 'sandbox' : 'undefined') : 'live';
 $db = db_connect('guest');
 $table_name = 'submissions';
-$sql_submissions = 'SELECT submissions.*, students.firstName, students.lastName FROM `submissions`, `students` WHERE `mode` = "'.$mode.'" AND submissions.submitterId = students.id';
+$sql_submissions = 'SELECT submissions.*, students.firstName, students.lastName FROM `submissions`, `students` WHERE `mode` = "'.$mode.'" AND submissions.submitterId = students.id ORDER BY submissions.created DESC';
 $res_submissions = $db->query($sql_submissions);
 $submissions = array();
 while($obj = $res_submissions->fetch_assoc()){
