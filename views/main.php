@@ -29,7 +29,7 @@ function printListItem($submission, $products_arr){
 			$p = $products_arr[$id];
 			$item_names[] = $p['title'];
 		}
-		$output .=  implode(', ', $item_names);
+		$output .=  implode('<br>', $item_names);
 	}
 	else  $output .=  $submission['items'];
 	

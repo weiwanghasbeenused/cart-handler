@@ -48,11 +48,10 @@
             // request 還沒完成 . . .
         }
     });
-    let request_url = "https://data.taipei/api/v1/dataset/2979c431-7a32-4067-9af2-e716cd825c4b?scope=resourceAquire";
+    let request_url = "https://data.taipei/api/v1/dataset/549a3347-df6e-4bed-b818-368210d01544?scope=resourceAquire";
     request.open("GET", request_url, false); // open() 還能接受第三個參數, 是用以表示這個 request 是否為 asynchronous (非同步) 的布林值, 預設為 true
-    let data = { "resource_id": "2979c431-7a32-4067-9af2-e716cd825c4b" };
-    data = JSON.stringify(data);
+
     console.log("request.send() 前一行");
-    request.send(data);
+    request.send();
     console.log("request.send() 後一行");
 </script>
