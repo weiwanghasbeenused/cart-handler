@@ -3,7 +3,12 @@ require_once(__DIR__ . '/../config/config.php');
 require_once(__DIR__ . '/../static/php/functions.php');
 $db = db_connect('admin');
 
-$html_products = '';
+$html = array(
+  'students' => '',
+  'mailinglist' => array(),
+  'products' => '',
+  'submissions' => array()
+);
 
 $sql_getProducts = "SELECT * FROM `products`";
 $result = $db->query($sql_getProducts);
@@ -11,13 +16,13 @@ $products = array();
 if($result){
   while($obj = $result->fetch_assoc()){
     $products[$obj['id']] = $obj;
-    $html_products .= '<div class="product-wrapper">';
-    $html_products .= '<div class="product-id">' . $obj['id'] . '</div>';
-    $html_products .= '<div class="product-title">' . $obj['title'] . '</div>';
-    $html_products .= '<div class="product-price">' . $obj['price'] . '</div>';
-    $html_products .= '<div class="product-thumbnail"><img src="/assets/images/'.$obj['thumbnail'].'"></div>';
-    $html_products .= '<div class="product-buttons-wrapper"><button class="product-button product-button-edit" data-product-id = "'.$obj['id'].'" data-cation="edit">EDIT</button><button class="product-button product-button-delete" data-product-id = "'.$obj['id'].'" data-cation="delete">DELETE</button>';
-    $html_products .= '</div>';
+    $html['products'] .= '<div class="product-wrapper">';
+    $html['products'] .= '<div class="product-id">' . $obj['id'] . '</div>';
+    $html['products'] .= '<div class="product-title">' . $obj['title'] . '</div>';
+    $html['products'] .= '<div class="product-price">' . $obj['price'] . '</div>';
+    $html['products'] .= '<div class="product-thumbnail"><img src="/assets/images/'.$obj['thumbnail'].'"></div>';
+    $html['products'] .= '<div class="product-buttons-wrapper"><button class="product-button product-button-edit" data-product-id = "'.$obj['id'].'" data-cation="edit">EDIT</button><button class="product-button product-button-delete" data-product-id = "'.$obj['id'].'" data-cation="delete">DELETE</button></div>';
+    $html['products'] .= '</div>';
   }
 }
 
@@ -32,113 +37,115 @@ if($result)
 
 $sql_getLiveSubmissions = "SELECT * FROM `submissions` WHERE `submitterId`=? AND `mode`='sandbox'";
 foreach($students as $s){
-  $html = '<div class="student-wrapper">';
+  if($s['email'] == 'weiwanghasbeenused@gmail.com' || $s['email'] == 'drxk41012@gmail.com') continue;
+  $name = $s['lastName'] . $s['firstName'];
+  $html['mailinglist'][] = $s['email'];
+  $html['students'] .=  '<div class="row student-wrapper">';
   $submissions = array();
   $stmt = $db->prepare($sql_getLiveSubmissions);
   $stmt->bind_param('s', $s['id']);
   $executed = $stmt->execute();
-  $html_submissions = '';
   if($executed) {
     $result = $stmt->get_result();
-    if($result->num_rows)
-      while($obj = $result->fetch_assoc())
-        $html_submissions .= '<div class="submission-items">' . $obj['items'] . '</div>';
+    if($result->num_rows){
+      $html['submissions'][$name] = array();
+      while($obj = $result->fetch_assoc()){
+        if($s['assignment']) {
+          $isCorrect = json_decode($s['assignment']) == json_decode($obj['items']);
+          $html['submissions'][$name][] = array(
+            'items' => $obj['items'],
+            'passed'  => $isCorrect
+          );
+        }
+        // $html['submissions'] .= '<div class="submission-items">' . $obj['items'] . ' ' . $isCorrect  . '</div>';
+      }
+    }
+      
+        
   }
-  $html .= '<div class="student-name"><span class="student-lastName">' . $s['lastName'] . '</span><span class="student-firstName">' . $s['firstName'] . '</span></div>';
-  $html .= '<div class="student-email">' . $s['email'] . '</div>';
-  $html .= '<div class="student-assignments">' . $s['assignment'] . '</div>';
-  $html .= '<div class="student-submissions">' . $html_submissions . '</div>';
-  $html .= '</div>';
-  $html_students .= $html;
+
+  $html['students'] .= '<div class="grid-cell student-name"><span class="student-lastName">' . $s['lastName'] . '</span><span class="student-firstName">' . $s['firstName'] . '</span></div>';
+  $html['students'] .= '<div class="grid-cell student-email">' . $s['email'] . '</div>';
+  $html['students'] .= '<div class="grid-cell student-assignments">' . $s['assignment'] . '</div>';
+  // $html['students'] .= '<div class="student-submissions">' . $html['submissions'] . '</div>';
+  $html['students'] .= '</div>';
+  // $html_students .= $html;
 }
-  
+$html['mailinglist'] = implode(', ', $html['mailinglist']);
+$html['mailinglist'] = '<textarea id="mailinglist-container" class="a b c">' . $html['mailinglist'] . '</textarea><button id="get-mailinglist-btn">複製 mailinglist</button>';
+$html['products'] = '<div class="grid-container">' . $html['products'] . '</div>';
+$temp = '';
+foreach($html['submissions'] as $student => $subs) {
+  $temp .= '<div class="row submission-row">';
+  $temp .= '<div class="cell student-name">' . $student . '</div>';
+  $temp .= '<div class="cell studdent-submissions-wrapper">';
+  foreach($subs as $sub) {
+    $class = $sub['passed'] ? 'items passed' : 'items';
+    $temp .= '<div class="'.$class.'">' . $sub['items'] . '</div>';
+  }
+  $temp .= '</div></div>';
+};
+$html['submissions'] = $temp;
 ?>
 <main page="<?php echo $uri[1]; ?>">
-  <section id="section-students"><?php echo $html_students; ?></section>
-  <section id="section-products"><?php echo $html_products; ?></section>
-</main>
-
-<?php
-/*
-$answer = array();
-$isNewStudent = true;
-$currentStudent = '';
-while ($line = fgets($output)) {
-  if( $line == "\n" || strpos($line, '商品:') !== false ) continue;
-  if( strpos( $line, "---" ) !== false ) {
-    $isNewStudent = true;
-    continue;
-  }
-  $line_content = str_replace(array("\r", "\n"), '', $line);
-  if( $isNewStudent ) {
-    $currentStudent = $line_content;
-    $answer[$currentStudent] = array();
-    $isNewStudent = false;
-  }
-  else
-  {
-    $answer[$currentStudent][] = $line_content;
-  }
-}
-fclose($output);
-
-function checkStudent($find, $list){
-  foreach($list as $item)
-  {
-    if(strpos($item, $find) !== false)
-      return $item;
-  }
-  return false;
-}
-$sql = "SELECT * FROM submissions";
-$result = $db->query($sql);
-$responses = array();
-while($obj = $result->fetch_assoc()){
-  $responses[$obj['submitterId']] = $obj;
-}
-$mismatches = array();
-$submitted = array();
-$idx = 1;
-foreach($responses as $n => $r){
-  $studentName = $n;
-  if( !isset($answer[$studentName])){
-    $possibleName = checkStudent($studentName, $student);
-    if(!$possibleName){
-      continue; 
+  <?php 
+    foreach($html as $key => $content) {
+      ?><section id="section-<?php echo $key; ?>"><?php echo $content; ?></section><?
     }
-    $studentName = $possibleName . ' ('.$studentName.')';
-    
-    $a = $answer[$possibleName];
+  ?>
+</main>
+<script>
+  let mailinglistContainer = document.getElementById('mailinglist-container');
+  let getMailinglistBtn = document.getElementById('get-mailinglist-btn');
+  if(getMailinglistBtn) {
+    if(navigator.clipboard) {
+      getMailinglistBtn.addEventListener('click', function(){
+        mailinglistContainer.select();
+        mailinglistContainer.setSelectionRange(0, 99999); // For mobile devices
+        navigator.clipboard.writeText(mailinglistContainer.value);
+      });
+    }
+    else getMailinglistBtn.style.display = 'none';
   }
-  else
+  console.log(mailinglistContainer.classList);
+</script>
+<style>
+  /* .grid-row {
+    display: flex;
+  } */
+  section + section {
+    margin-top: 60px;
+  }
+  .student-name { 
+    flex: 0 0 150px;
+  }
+  .student-email { 
+    flex: 1;
+  }
+  .student-assignments { 
+    flex: 0 0 200px;
+  }
+  #mailinglist-container
   {
-    $a = $answer[$studentName];
+    width: 100%;
   }
-  echo $idx . ': ' . $studentName . '<br>';
-  // $item_ids = json_decode($r['items']);
-  $sql = "SELECT title FROM products WHERE id IN (" . $r['items'] . ")";
-  $result = $db->query($sql);
-  $item_names = array();
-  while($obj = $result->fetch_assoc()){
-    $item_names[] = $obj['title'];
+  .grid-container {
+    display: flex;
+    flex-wrap: wrap;
   }
-  
-  
-  if( !empty(array_diff( $a, $item_names )) ){
-    $error_items = array_diff( $a, $item_names );
-    echo '有誤! 缺少商品: ' . implode(', ', $error_items) . '<br><br>';
+  .product-wrapper {
+    flex: 1;
+    margin-bottom: 20px;
   }
-  else if( !empty(array_diff( $item_names, $a )) )
+  .items + .items {
+    /* border-top: 1px solid; */
+  }
+  .items.passed {
+    background-color: pink;
+  }
+  .studdent-submissions-wrapper
   {
-    $error_items = array_diff( $item_names, $a );
-    echo '有誤! 多出商品: ' . implode(', ', $error_items) . '<br><br>';
+    flex: 1;
   }
-  else
-  {
-    echo '全對<br><br>';
-  }
-  if(in_array($studentName, $submitted)) echo '重複提交<br><br>';
-  $submitted[] = $studentName;
-  $idx++;
-}
-*/
+</style>
+<?php
