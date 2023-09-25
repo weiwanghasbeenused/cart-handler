@@ -35,7 +35,7 @@ if($result)
   while($obj = $result->fetch_assoc())
     $students[] = $obj;
 
-$sql_getLiveSubmissions = "SELECT * FROM `submissions` WHERE `submitterId`=? AND `mode`='sandbox'";
+$sql_getLiveSubmissions = "SELECT * FROM `submissions` WHERE `submitterId`=? AND `mode`='live'";
 foreach($students as $s){
   if($s['email'] == 'weiwanghasbeenused@gmail.com' || $s['email'] == 'drxk41012@gmail.com') continue;
   $name = $s['lastName'] . $s['firstName'];
@@ -51,7 +51,7 @@ foreach($students as $s){
       $html['submissions'][$name] = array();
       while($obj = $result->fetch_assoc()){
         if($s['assignment']) {
-          $isCorrect = json_decode($s['assignment']) == json_decode($obj['items']);
+          $isCorrect = array_values_equal(json_decode($s['assignment']), json_decode($obj['items']));
           $html['submissions'][$name][] = array(
             'items' => $obj['items'],
             'passed'  => $isCorrect
@@ -72,20 +72,25 @@ foreach($students as $s){
   // $html_students .= $html;
 }
 $html['mailinglist'] = implode(', ', $html['mailinglist']);
-$html['mailinglist'] = '<textarea id="mailinglist-container" class="a b c">' . $html['mailinglist'] . '</textarea><button id="get-mailinglist-btn">複製 mailinglist</button>';
+$html['mailinglist'] = '<textarea id="mailinglist-container">' . $html['mailinglist'] . '</textarea><button id="get-mailinglist-btn">複製 mailinglist</button>';
 $html['products'] = '<div class="grid-container">' . $html['products'] . '</div>';
 $temp = '';
 foreach($html['submissions'] as $student => $subs) {
-  $temp .= '<div class="row submission-row">';
-  $temp .= '<div class="cell student-name">' . $student . '</div>';
-  $temp .= '<div class="cell studdent-submissions-wrapper">';
+  $isPassed = false;
+  $temp_individual = '';
   foreach($subs as $sub) {
-    $class = $sub['passed'] ? 'items passed' : 'items';
-    $temp .= '<div class="'.$class.'">' . $sub['items'] . '</div>';
+    $class = 'items';
+    if($sub['passed']) {
+      $class .= ' passed';
+      $isPassed = true;
+    }
+    $temp_individual .= '<div class="'.$class.'">' . $sub['items'] . '</div>';
   }
-  $temp .= '</div></div>';
+  $class = $isPassed ? 'row submission-row passed' : 'row submission-row';
+  $temp .= '<div class="'.$class.'"><div class="cell student-name">' . $student . '</div><div class="cell studdent-submissions-wrapper">' . $temp_individual . '</div></div>';
 };
 $html['submissions'] = $temp;
+
 ?>
 <main page="<?php echo $uri[1]; ?>">
   <?php 
@@ -107,7 +112,6 @@ $html['submissions'] = $temp;
     }
     else getMailinglistBtn.style.display = 'none';
   }
-  console.log(mailinglistContainer.classList);
 </script>
 <style>
   /* .grid-row {
@@ -146,6 +150,10 @@ $html['submissions'] = $temp;
   .studdent-submissions-wrapper
   {
     flex: 1;
+  }
+  .row.passed .student-name:after {
+    content: "\2713";
+    display: inline;
   }
 </style>
 <?php

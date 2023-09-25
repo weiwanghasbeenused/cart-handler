@@ -53,11 +53,11 @@ body.sandbox
 }
 .name
 {
-    flex: 0 0 80px;
+    flex: 0 0 100px;
 }
 .items
 {
-    flex: 0 0 500px;
+    flex: 1;
 }
 .subtotal
 {
@@ -65,7 +65,7 @@ body.sandbox
 }
 .created
 {
-    flex: 1;
+    flex: 0 0 240px;
 }
 .tip-trigger {
     display: inline-block;

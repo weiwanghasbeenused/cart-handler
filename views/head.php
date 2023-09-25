@@ -19,7 +19,7 @@ if($uri[1] == 'login' || $uri[1] == 'register') $stylesheets[] = 'form';
 	<?php 
 	foreach($stylesheets as $s) echo '<link href="static/css/'.$s.'.css" rel="stylesheet" />';
 	?>
-	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<script src="assets/js/cookie.js"></script>
 </head>
 <body class="<?= $bodyClass; ?>">

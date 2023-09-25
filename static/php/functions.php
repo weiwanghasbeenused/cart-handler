@@ -37,5 +37,13 @@ function callAPI($method, $url, $userpwd, $header = array(), $data = false)
     curl_close($curl);
     return $result;
 }
+function array_values_equal($a, $b) {
+    $x = array_values($a);
+    $y = array_values($b);
 
+    sort($x);
+    sort($y);
+
+    return $x == $y;
+}
 ?>
