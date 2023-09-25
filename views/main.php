@@ -17,7 +17,7 @@ while($obj = $res_products->fetch_assoc()){
 function printListItem($submission, $products_arr){
 	$output = '<div class="row"><div class="name">'.$submission['lastName']. ' ' . $submission['firstName'].'</div><div class="items">';
 	$items = json_decode($submission['items'] );
-	$created = $submission['created'] ? $submission['created'] : '';
+	$created = $submission['created'] ? str_replace(' ', '<br>', $submission['created']) : '';
 	$item_names = array();
 	if($items)
 	{

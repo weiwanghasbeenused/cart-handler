@@ -65,7 +65,7 @@ body.sandbox
 }
 .created
 {
-    flex: 0 0 240px;
+    flex: 0 0 150px;
 }
 .tip-trigger {
     display: inline-block;
